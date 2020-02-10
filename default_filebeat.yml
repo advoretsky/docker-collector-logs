@@ -3,7 +3,6 @@
 filebeat.inputs:
 - type: docker
   containers:
-    path: /var/lib/docker/containers
     ids: '*'
   fields_under_root: true
   processors:

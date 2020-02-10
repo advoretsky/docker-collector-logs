@@ -10,6 +10,7 @@ logzio_url = os.environ["LOGZIO_URL"]
 logzio_url_arr = logzio_url.split(":")
 logzio_token = os.environ["LOGZIO_TOKEN"]
 logzio_type = os.getenv("LOGZIO_TYPE", "docker-collector-logs")
+containers_path = os.getenv("containers_path", "/var/lib/docker/containers")
 
 logzio_codec = os.getenv("LOGZIO_CODEC", "plain").lower()
 logzio_codec_list = ["plain", "json"]
@@ -49,6 +50,7 @@ def _add_shipping_data():
     config_dic["filebeat.inputs"][0]["fields"]["token"] = logzio_token
     config_dic["filebeat.inputs"][0]["fields"]["logzio_codec"] = logzio_codec
     config_dic["filebeat.inputs"][0]["fields"]["type"] = logzio_type
+    config_dic["filebeat.inputs"][0]["containers"]["path"] = containers_path
     config_dic["filebeat.inputs"][0]["ignore_older"] = _get_ignore_older()
 
     additional_field = _get_additional_fields()
